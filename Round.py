@@ -42,7 +42,7 @@ class Round(object):
         # return the winner of the trick
         win_card = self.getWinningCard()
         win_player = game.center[win_card]
-        if win_player == self.playerA1 or win_player == self.playerA2:
+        if win_player == game.playerA1 or win_player == game.playerA2:
             game.tricksA += 1
         else:
             game.tricksB += 1
@@ -76,3 +76,21 @@ class Round(object):
         for x in range(1, 5):
             self.players[(x + deal_index) % 4].setHand(self.deck[:5])
             self.deck = self.deck[5:]
+
+    def getWinningCard(self):
+        # Just pick a random card to start so I don't have to initialize one
+        highest = next(iter(game.center))
+
+        for x in game.center:
+            # If the card is trump it should beat all non-trump and lower trump
+            if x.suit == game.trump:
+                if x.num > highest.num or highest.suit != game.trump:
+                    highest = x
+            # If its the lead suit it should beat all lower lead suits, but no trump cards
+            if x.suit == game.lead and highest.suit != game.trump:
+                if x.num > highest.num:
+                    highest = x
+        print game.trump
+        print game.lead
+        print "%s|%s" % (highest.num,highest.suit)
+        return highest

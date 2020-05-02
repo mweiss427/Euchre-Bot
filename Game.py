@@ -37,12 +37,6 @@ class Game():
             self.dealer = self.rotateDeal()
 
 
-
-
-    def getWinningCard(self):
-        # WHAT ARE YOU DOING?!
-        return sorted(game.center, key=curCardVal, reverse=True)[0]
-
     def allotScore(round):
         # simple rules used, no going alone  -- Should be redone -Shawn
         if game.caller == round.playerA1 or game.caller == round.playerA2:  # caller is in team A

@@ -63,6 +63,7 @@ class Card(object):
 	def __repr__(self):
 		return '<%s %s>' % (self.__class__.__name__, self.__dict__)
 
+
 # a list of all possible cards, done as a tuple so that it cannot be accidently changed at runtime
 allcards = tuple([Card(s, c) for s in (diamond, spade, club, heart) for c in (14, 13, 12, 11, 10, 9)])
 
