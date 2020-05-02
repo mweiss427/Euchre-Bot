@@ -58,6 +58,7 @@ class RandomPlayer(Player.Player):
         # not necessary for random play
         pass
 
+##----------------------We need to implement out-suit for selecting
     def orderUpCard(self, topCard):
         print "%s passes, like a bitch" % self.name
         return False
@@ -67,4 +68,6 @@ class RandomPlayer(Player.Player):
         return "pass"
 
     def forceOrderUp(self):
-        return "h"
+            choice = random.choice([heart, spade, club, diamond])
+            print "%s bids %s" % (self.name, choice)
+            return choice
