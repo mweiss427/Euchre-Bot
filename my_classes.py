@@ -2,7 +2,7 @@ from game_globals import *
 import RandomPlayer
 import random
 
-# holder and runner of the entire game
+# holder and runner of the entire game  -- This is deprecated now I assume? -Shawn
 class Euchre():
 	def __init__(self):
 		# initialize AI's here

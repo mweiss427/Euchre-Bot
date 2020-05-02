@@ -2,7 +2,8 @@
 
 import codecs
 
-if True: # black characters
+# Getting the unicode chars for the suits
+if True:
 	heart = u"\u2665"
 	spade = u"\u2660"
 	diamond = u"\u2666"
@@ -12,11 +13,11 @@ if True: # black characters
 class Logger:
 	def __init__(self, logging_file):
 		self.the_log = codecs.open(logging_file, encoding='utf-8', mode='w')
-		
+
 	def log(self, info):
 		self.the_log.write(info.replace('\n', '\r\n'))
 		self.the_log.write('\r\n')
-		
+
 out = Logger("log.txt")
 
 class Info:
@@ -25,13 +26,13 @@ class Info:
 		self.dealer = None # player
 		self.lead   = None # suit
 		self.center = {} # array of {card:player} for cards in center of table
-		
+
 		# round level
 		self.trump  = None # suit
 		self.caller = None # player
 		self.tricksA = 0 # tricks gotten
 		self.tricksB = 0
-		
+
 		# game level
 		self.scoreA  = 0 # total score
 		self.scoreB  = 0
@@ -39,7 +40,7 @@ class Info:
 	def resetTrick(self):
 		self.lead = None
 		self.center = {}
-	
+
 	def resetRound(self):
 		self.trump = None
 		self.caller = None
@@ -77,7 +78,7 @@ def offSuit(trump_suit):
 		return club
 	else:
 		return spade
-		
+
 def query_yes_no(question, default="yes"):
     """
 	Ask a yes/no question via raw_input() and return their answer.
@@ -85,7 +86,7 @@ def query_yes_no(question, default="yes"):
     """
     valid = {"yes":True,   "y":True,  "ye":True,
              "no":False,     "n":False}
-			 
+
     if default == None:
         prompt = " [y/n] "
     elif default == "yes":
@@ -104,7 +105,7 @@ def query_yes_no(question, default="yes"):
             return valid[choice]
         else:
             print "Please respond with 'yes' or 'no' (or 'y' or 'n').\n"
-			
+
 def curCardVal(card):
 		# This might need to become a global function
 		if card.suit == game.trump:

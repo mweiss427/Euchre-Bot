@@ -17,16 +17,19 @@ class Game():
         # make a list of the players for rotations
         self.players = [self.playerA1, self.playerB1, self.playerA2, self.playerB2]
 
+        # make teams of players across from one another
         self.team1 = Team(self.playerA1, self.playerA2)
         self.team2 = Team(self.playerB1, self.playerB2)
 
+        # Player A1 is the default first player, it is then rotated each round
         game.dealer = self.playerA1
 
-
+    # Begins the game
     def playGame(self):
         self.team1.showTeam()
         self.team2.showTeam()
 
+        # Checks that both teams have not reached 11 before moving to the next round
         while not self.team1.hasWon() and not self.team2.hasWon():
             currentRound = Round(self.players)
             currentRound.playRound()
@@ -41,7 +44,7 @@ class Game():
         return sorted(game.center, key=curCardVal, reverse=True)[0]
 
     def allotScore(round):
-        # simple rules used, no going alone
+        # simple rules used, no going alone  -- Should be redone -Shawn
         if game.caller == round.playerA1 or game.caller == round.playerA2:  # caller is in team A
             c_team = "A"
             c_tricks = game.tricksA
@@ -72,27 +75,28 @@ class Game():
             else:
                 game.scoreB += 2
 
-    def hasWinner(self):
-        if game.scoreA >= 10:
-            print "Team A Has won!"
-            return True
-        elif game.scoreB >= 10:
-            print "Team B Has won!"
-            return True
-        else:
-            return False
+#    Leaving off for a week then deleting (Replaced with team.hasWon())
+#    def hasWinner(self):
+#        if game.scoreA >= 10:
+#            print "Team A Has won!"
+#            return True
+#        elif game.scoreB >= 10:
+#            print "Team B Has won!"
+#            return True
+#        else:
+#            return False
 
-    def endGame(self):  # ends the game
-        if game.scoreA >= 10:
-            print "Players %s and %s have won!" % (self.playerA1.name, self.playerA2.name)
-            out.log("Players %s and %s have won!" % (self.playerA1.name, self.playerA2.name))
-        elif game.scoreB >= 10:
-            print "Players %s and %s have won!" % (self.playerB1.name, self.playerB2.name)
-            out.log("Players %s and %s have won!" % (self.playerB1.name, self.playerB2.name))
-        print "With a score of %d to %d." % (game.scoreA, game.scoreB)
-        out.log("With a score of %d to %d." % (game.scoreA, game.scoreB))
+#   Leaving off for a week then deleting (Replaced with while loop in playGame())
+#    def endGame(self):  # ends the game
+#        if game.scoreA >= 10:
+#            print "Players %s and %s have won!" % (self.playerA1.name, self.playerA2.name)
+#            out.log("Players %s and %s have won!" % (self.playerA1.name, self.playerA2.name))
+#        elif game.scoreB >= 10:
+#            print "Players %s and %s have won!" % (self.playerB1.name, self.playerB2.name)
+#            out.log("Players %s and %s have won!" % (self.playerB1.name, self.playerB2.name))
+#        print "With a score of %d to %d." % (game.scoreA, game.scoreB)
+#        out.log("With a score of %d to %d." % (game.scoreA, game.scoreB))
 
     def rotateDeal(self):  # rotate the dealer
         # use this if game.dealer is a direct reference
         return self.players[(self.players.index(self.dealer) + 1) % 4]
-
