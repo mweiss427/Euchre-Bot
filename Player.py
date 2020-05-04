@@ -16,10 +16,11 @@ class Player:
     def __init__(self, name):
         self.BaseSetUp(name)
 
-    def BaseSetUp(self, name):
+    def BaseSetUp(self, name, team):
         self.name = name  # name is a unique identifier
         self.tricks = 0
         self.hand = []
+        self.team = team
 
     def printHand(self):
         for x in range(len(self.hand)):

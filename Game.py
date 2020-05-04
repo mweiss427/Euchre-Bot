@@ -7,28 +7,25 @@ import RandomPlayer
 
 class Game():
     def __init__(self):
-        # initialize AI's here
 
-        self.playerA1 = RandomPlayer.RandomPlayer("Tyler")
-        self.playerA2 = RandomPlayer.RandomPlayer("Hudson")
-        self.playerB1 = RandomPlayer.RandomPlayer("Shawn")
-        self.playerB2 = RandomPlayer.RandomPlayer("Matt")
+        #Make teams of players across from one another
+        self.team1 = Team("team1")
+        self.team2 = Team("team2")
+
+        # initialize AI's here
+        self.playerA1 = RandomPlayer.RandomPlayer("Tyler", self.team1)
+        self.playerA2 = RandomPlayer.RandomPlayer("Hudson", self.team1)
+        self.playerB1 = RandomPlayer.RandomPlayer("Shawn", self.team2)
+        self.playerB2 = RandomPlayer.RandomPlayer("Matt", self.team2)
 
         # make a list of the players for rotations
         self.players = [self.playerA1, self.playerB1, self.playerA2, self.playerB2]
-
-        # make teams of players across from one another
-        self.team1 = Team(self.playerA1, self.playerA2)
-        self.team2 = Team(self.playerB1, self.playerB2)
 
         # Player A1 is the default first player, it is then rotated each round
         game.dealer = self.playerA1
 
     # Begins the game
     def playGame(self):
-        self.team1.showTeam()
-        self.team2.showTeam()
-
         # Checks that both teams have not reached 11 before moving to the next round
         while not self.team1.hasWon() and not self.team2.hasWon():
             currentRound = Round(self.players)

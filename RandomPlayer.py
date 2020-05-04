@@ -17,8 +17,8 @@ random.seed() # automatically uses system time
 # automatically uses system time
 
 class RandomPlayer(Player.Player):
-    def __init__(self, name):
-		self.BaseSetUp(name)
+    def __init__(self, name, team):
+		self.BaseSetUp(name, team)
 
     def playCard(self):
         moves = self.validMoves()

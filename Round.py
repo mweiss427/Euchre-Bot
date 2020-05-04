@@ -16,12 +16,14 @@ class Round(object):
 
         self.leader = self.players[(self.players.index(game.dealer) + 1 % 4)]
         for x in range(5):
-            self.playTrick(self.leader)
+            self.leader = self.playTrick(self.leader)
 
         winner = "TODO"
         return winner
 
     def playTrick(self, leader):
+        #reset game.center (the middle of the table)
+        game.resetTrick()
         # get the start card from leader
         # assume cards played are legal
         played = leader.playCard()
@@ -35,18 +37,27 @@ class Round(object):
 
         # play the trick
         leader_index = self.players.index(leader)
+
         for x in range(1, 4):
-            played = self.players[(leader_index + x) % 4].playCard()
-            game.center[played] = self.players[(leader_index + x) % 4]
+            turnIndex = leader_index + x
+            played = self.players[(turnIndex) % 4].playCard()
+            game.center[played] = self.players[(turnIndex) % 4]
 
         # return the winner of the trick
         win_card = self.getWinningCard()
         win_player = game.center[win_card]
-        if win_player == game.playerA1 or win_player == game.playerA2:
+        win_player.team.roundScore += 1
+        print "%s wins the trick with %s " % (win_player.name, win_card)
+        if win_player.team.name == self.players[0].team.name or win_player.team.name == self.players[1].team.name:
             game.tricksA += 1
         else:
             game.tricksB += 1
+
+        print "Team A roundScore %s" % game.tricksA
+        print "Team B roundScore %s" % game.tricksB
         return win_player
+
+
 
     def bid(self):
         topCard = self.deck[0]
@@ -90,7 +101,7 @@ class Round(object):
             if x.suit == game.lead and highest.suit != game.trump:
                 if x.num > highest.num:
                     highest = x
-        print game.trump
-        print game.lead
-        print "%s|%s" % (highest.num,highest.suit)
+        print "Trump is %s" % game.trump
+        print "%s was lead" % game.lead
+        #print "Winning card is %s|%s" % (highest.num,highest.suit)
         return highest
