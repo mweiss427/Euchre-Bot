@@ -39,7 +39,7 @@ class Round(object):
 
         for x in range(1, 4):
             turnIndex = leader_index + x
-            played = self.players[(turnIndex) % 4].playCard()
+            played = self.players[turnIndex % 4].playCard()
             game.center[played] = self.players[(turnIndex) % 4]
 
         # return the winner of the trick
