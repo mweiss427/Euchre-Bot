@@ -66,11 +66,11 @@ class Round(object):
 
         print "%s is flipped down" % topCard
         for x in range(1, 4):
-            orderedSuit = self.players[(self.players.index(game.dealer) + x % 4)].orderUpSuit()
+            orderedSuit = self.players[(self.players.index(game.dealer) + x % 4)].orderUpSuit(topCard.suit)
             if orderedSuit != "pass":
                 return orderedSuit
 
-        return game.dealer.forceOrderUp()
+        return game.dealer.forceOrderUp(topCard.suit)
 
     def getTrump(self):
         return self.trump

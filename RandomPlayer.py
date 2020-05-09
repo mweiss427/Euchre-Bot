@@ -12,13 +12,15 @@
 from game_globals import *
 import Player
 import random
-random.seed() # automatically uses system time
+
+random.seed()  # automatically uses system time
+
 
 # automatically uses system time
 
 class RandomPlayer(Player.Player):
     def __init__(self, name, team):
-		self.BaseSetUp(name, team)
+        self.BaseSetUp(name, team)
 
     def playCard(self):
         moves = self.validMoves()
@@ -58,16 +60,18 @@ class RandomPlayer(Player.Player):
         # not necessary for random play
         pass
 
-##----------------------We need to implement out-suit for selecting
+    ##
     def orderUpCard(self, topCard):
         print "%s passes, like a bitch" % self.name
         return False
 
-    def orderUpSuit(self):
+    def orderUpSuit(self, topCardSuit):
         print "%s passes...again, like a HUGH bitch" % self.name
         return "pass"
 
-    def forceOrderUp(self):
-            choice = random.choice([heart, spade, club, diamond])
-            print "%s bids %s" % (self.name, choice)
-            return choice
+    def forceOrderUp(self, topCardSuit):
+        suits = [heart, spade, club, diamond]
+        suits.remove(topCardSuit)
+        choice = random.choice(suits)
+        print "%s bids %s" % (self.name, choice)
+        return choice

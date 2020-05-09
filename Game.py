@@ -33,6 +33,7 @@ class Game():
             currentRound.playRound()
             self.allotScore(currentRound)
             self.dealer = self.rotateDeal()
+            print "dealer is %s" % self.dealer.name
 
     def allotScore(self, round):
         scoreA = round.players[0].team.roundScore
