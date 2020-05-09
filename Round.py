@@ -1,6 +1,6 @@
-
 from game_globals import *
 import random
+
 
 class Round(object):
     def __init__(self, players):
@@ -22,16 +22,15 @@ class Round(object):
         return winner
 
     def playTrick(self, leader):
-        #reset game.center (the middle of the table)
+        # reset game.center (the middle of the table)
         game.resetTrick()
         # get the start card from leader
         # assume cards played are legal
         played = leader.playCard()
+        game.center[played] = leader
 
-
-        # handle the lead/left bower problem
-        if played.num == 11 and played.suit == offSuit(game.trump):
-            game.lead = offSuit(game.trump)
+        if played.isTrump():
+            game.lead = played.offSuit()
         else:
             game.lead = played.suit
 
@@ -48,16 +47,10 @@ class Round(object):
         win_player = game.center[win_card]
         win_player.team.roundScore += 1
         print "%s wins the trick with %s " % (win_player.name, win_card)
-        if win_player.team.name == self.players[0].team.name or win_player.team.name == self.players[1].team.name:
-            game.tricksA += 1
-        else:
-            game.tricksB += 1
 
-        print "Team A roundScore %s" % game.tricksA
-        print "Team B roundScore %s" % game.tricksB
+        print "Team A roundScore %s" % self.players[0].team.roundScore
+        print "Team B roundScore %s" % self.players[1].team.roundScore
         return win_player
-
-
 
     def bid(self):
         topCard = self.deck[0]
@@ -91,17 +84,9 @@ class Round(object):
     def getWinningCard(self):
         # Just pick a random card to start so I don't have to initialize one
         highest = next(iter(game.center))
-
-        for x in game.center:
-            # If the card is trump it should beat all non-trump and lower trump
-            if x.suit == game.trump:
-                if x.num > highest.num or highest.suit != game.trump:
-                    highest = x
-            # If its the lead suit it should beat all lower lead suits, but no trump cards
-            if x.suit == game.lead and highest.suit != game.trump:
-                if x.num > highest.num:
-                    highest = x
-        print "Trump is %s" % game.trump
         print "%s was lead" % game.lead
-        #print "Winning card is %s|%s" % (highest.num,highest.suit)
+        for x in game.center:
+            highest = highest.beats(x)
+
+        # print "Winning card is %s|%s" % (highest.num,highest.suit)
         return highest

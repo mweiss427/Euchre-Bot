@@ -66,27 +66,6 @@ class Game():
             else:
                 game.scoreB += 2
 
-#    Leaving off for a week then deleting (Replaced with team.hasWon())
-#    def hasWinner(self):
-#        if game.scoreA >= 10:
-#            print "Team A Has won!"
-#            return True
-#        elif game.scoreB >= 10:
-#            print "Team B Has won!"
-#            return True
-#        else:
-#            return False
-
-#   Leaving off for a week then deleting (Replaced with while loop in playGame())
-#    def endGame(self):  # ends the game
-#        if game.scoreA >= 10:
-#            print "Players %s and %s have won!" % (self.playerA1.name, self.playerA2.name)
-#            out.log("Players %s and %s have won!" % (self.playerA1.name, self.playerA2.name))
-#        elif game.scoreB >= 10:
-#            print "Players %s and %s have won!" % (self.playerB1.name, self.playerB2.name)
-#            out.log("Players %s and %s have won!" % (self.playerB1.name, self.playerB2.name))
-#        print "With a score of %d to %d." % (game.scoreA, game.scoreB)
-#        out.log("With a score of %d to %d." % (game.scoreA, game.scoreB))
 
     def rotateDeal(self):  # rotate the dealer
         # use this if game.dealer is a direct reference

@@ -56,29 +56,72 @@ class Card(object):
 
 	def __str__(self):
 		if self.num > 10:
-			return ["Jack", "Queen", "King", "Ace"][self.num - 11] + "|" + self.suit
+			return ["Jack", "Queen", "King", "Ace", "Left Jack" , "Right Jack"][self.num - 11] + "|" + self.suit
 		else:
 			return str(self.num) + "|" + self.suit
 
 	def __repr__(self):
 		return '<%s %s>' % (self.__class__.__name__, self.__dict__)
 
+	def beats(self, card):
+		# If the card is trump it should beat all non-trump and lower trump
+		if card.isTrump():
+			if self.isTrump():
+				if card.order() > self.order():
+					return card
+				else:
+					return self
+			else:
+				return card
+		else:
+			if self.isTrump():
+				return self
+			if card.order() > self.order():
+				return card
+			else:
+				return self
+
+	def order(self):
+		if self.suit == game.trump and self.num == 11:
+			self.num = 16
+
+		if self.isLeft():
+			self.num = 15
+
+		return self.num
+
+	def offSuit(self):
+		"""
+		Takes a suit and returns what the off hand suit would be.
+		"""
+		if self.suit == heart:
+			return diamond
+
+		if self.suit == diamond:
+			return heart
+
+		if self.suit == spade:
+			return club
+
+		if self.suit == club:
+			return spade
+		pass
+
+	def isLeft(self):
+		if self.offSuit() == game.trump and self.num == 11:
+			return True
+		return False
+
+	def isTrump(self):
+		if(game.trump == self.suit):
+			return True
+		if(self.isLeft()):
+			return True
+		return False
+
 
 # a list of all possible cards, done as a tuple so that it cannot be accidently changed at runtime
 allcards = tuple([Card(s, c) for s in (diamond, spade, club, heart) for c in (14, 13, 12, 11, 10, 9)])
-
-def offSuit(trump_suit):
-	"""
-	Takes a suit and returns what the off hand suit would be.
-	"""
-	if trump_suit == heart:
-		return diamond
-	elif trump_suit == diamond:
-		return heart
-	elif trump_suit == spade:
-		return club
-	else:
-		return spade
 
 def query_yes_no(question, default="yes"):
     """

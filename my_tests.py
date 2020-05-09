@@ -1,22 +1,21 @@
+from Game import Game
+from game_globals import Card
+import codecs
 
-import RandomPlayer
+# Getting the unicode chars for the suits
+heart = u"\u2665"
+spade = u"\u2660"
+diamond = u"\u2666"
+club = u"\u2663"
 
-def testAI(cur_ai):
-	# if the attribute does not exist this will raise an attribute error for the missing function
-	cur_ai.playCard
-	cur_ai.updateInfo
-	cur_ai.orderUp
-	cur_ai.pickUp
-	cur_ai.pickSuit
-	cur_ai.reset
-	cur_ai.setHand
+# assert sum([1, 2, 3]) == 6, "Should be 6"
 
-# Test that all AIs have the necessary functions
-testAI(RandomPlayer.RandomPlay("R"))
-print "RandomPlay is good."
-testAI(RandomPlayer.RealPlayer("RP"))
-print "RealPlayer is good."
-testAI(RandomPlayer.SimpleStat("SS"))
-print "SimpleStat is good."
-testAI(RandomPlayer.SimpleStat("SR"))
-print "SimpleRules is good."
+game = Game()
+card = Card(diamond, 11)
+game.trump = heart
+
+assert card.offSuit() == heart
+
+assert card.isLeft()
+
+assert card.isTrump()
