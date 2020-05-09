@@ -10,6 +10,8 @@ class Round(object):
     def playRound(self):  # begins the next 5 tricks
         print "Start a round!  Deal dem cards yo."
         self.dealCards()
+        self.players[0].team.roundScore = 0
+        self.players[1].team.roundScore = 0
 
         game.trump = self.bid()
         print "trump is set to %s" % game.trump

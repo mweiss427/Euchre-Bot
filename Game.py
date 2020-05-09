@@ -3,12 +3,13 @@ from game_globals import *
 from Round import Round
 import RandomPlayer
 
+
 # holder and runner of the entire game
 
 class Game():
     def __init__(self):
 
-        #Make teams of players across from one another
+        # Make teams of players across from one another
         self.team1 = Team("team1")
         self.team2 = Team("team2")
 
@@ -33,40 +34,26 @@ class Game():
             self.allotScore(currentRound)
             self.dealer = self.rotateDeal()
 
+    def allotScore(self, round):
+        scoreA = round.players[0].team.roundScore
+        scoreB = round.players[1].team.roundScore
 
-    def allotScore(round):
-        # simple rules used, no going alone  -- Should be redone -Shawn
-        if game.caller == round.playerA1 or game.caller == round.playerA2:  # caller is in team A
-            c_team = "A"
-            c_tricks = game.tricksA
-        else:
-            c_tricks = game.tricksB
-            c_team = "B"
+        if scoreA > 3:
+            if scoreA == 5:
+                self.team1.score += 2
+            else:
+                self.team1.score += 1
 
-        out.log("\t\tCaller: %s  Tricks: A; %d B; %d C: %d" % (c_team, game.tricksA, game.tricksB, c_tricks))
+        if scoreB > 3:
+            if scoreB == 5:
+                self.team2.score += 2
+            else:
+                self.team2.score += 1
 
-        if c_tricks == 0:
-            if c_team != "A":
-                game.scoreA += 4
-            else:
-                game.scoreB += 4
-        elif c_tricks == 1 or c_tricks == 2:
-            if c_team != "A":
-                game.scoreA += 2
-            else:
-                game.scoreB += 2
-        elif c_tricks == 3 or c_tricks == 4:
-            if c_team == "A":
-                game.scoreA += 1
-            else:
-                game.scoreB += 1
-        else:
-            if c_team == "A":
-                game.scoreA += 2
-            else:
-                game.scoreB += 2
+        print "Team 1 Score %s" % self.team1.score
+        print "Team 2 Score %s" % self.team2.score
 
 
     def rotateDeal(self):  # rotate the dealer
         # use this if game.dealer is a direct reference
-        return self.players[(self.players.index(self.dealer) + 1) % 4]
+        return self.players[(self.players.index(game.dealer) + 1 % 4)]

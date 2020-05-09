@@ -32,7 +32,7 @@ class Player:
         validmoves = []
         for x in self.hand:
             if x.num == 11:
-                if game.lead == game.trump and x.suit == offSuit(game.trump):
+                if game.lead == game.trump and x.suit == x.offSuit():
                     validmoves.append(x)
             elif x.suit == game.lead:
                 validmoves.append(x)
