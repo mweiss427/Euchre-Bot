@@ -62,6 +62,6 @@ class Game():
         print "Old dealer name is %s" % self.players[self.players.index(game.dealer)].name
 
         #print "New dealer index is %s" % self.players.index(game.dealer) + 1
-        print "New dealer name is %s" % self.players[self.players.index(game.dealer) + 1].name
+        print "New dealer name is %s" % self.players[(self.players.index(game.dealer) + 1) % 4].name
 
-        return self.players[(self.players.index(game.dealer) + 1 % 4)]
+        return self.players[((self.players.index(game.dealer) + 1) % 4)]

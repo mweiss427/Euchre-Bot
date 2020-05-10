@@ -16,7 +16,7 @@ class Round(object):
         game.trump = self.bid()
         print "trump is set to %s" % game.trump
 
-        self.leader = self.players[(self.players.index(game.dealer) + 1 % 4)]
+        self.leader = self.players[(self.players.index(game.dealer) + 1) % 4]
         for x in range(5):
             self.leader = self.playTrick(self.leader)
 
@@ -59,7 +59,7 @@ class Round(object):
         print "Up card is: %s" % topCard
 
         for x in range(1, 5):
-            num = self.players.index(game.dealer) + x % 4
+            num = (self.players.index(game.dealer) + x) % 4
             hasOrdered = self.players[num].orderUpCard(topCard)
             if hasOrdered:
                 game.dealer.discardCard(hasOrdered)
@@ -67,7 +67,7 @@ class Round(object):
 
         print "%s is flipped down" % topCard
         for x in range(1, 4):
-            num = self.players.index(game.dealer) + x % 4
+            num = (self.players.index(game.dealer) + x) % 4
             orderedSuit = self.players[num].orderUpSuit(topCard.suit)
             if orderedSuit != "pass":
                 return orderedSuit
