@@ -6,6 +6,9 @@ import RandomPlayer
 
 # holder and runner of the entire game
 
+
+
+
 class Game():
     def __init__(self):
 
@@ -35,6 +38,24 @@ class Game():
             game.dealer = self.rotateDeal()
             print "dealer is %s" % game.dealer.name
 
+        return self.getWinner()
+
+
+    def getWinner(self):
+        if(self.team1.score >= 11):
+            print "Team 1 Won:"
+            print "The score was " \
+                  "Team 1: %s" \
+                  "TEam 2: %s" % (self.team1.score, self.team2.score)
+            return self.team1
+        else:
+            print "Team 2 Won:"
+            print "The score was " \
+                  "Team 1: %s - " \
+                  "Team 2: %s" % (self.team1.score, self.team2.score)
+            self.team2
+        pass
+
     def allotScore(self, round):
         scoreA = round.players[0].team.roundScore
         scoreB = round.players[1].team.roundScore
@@ -57,11 +78,5 @@ class Game():
 
     def rotateDeal(self):  # rotate the dealer
         # use this if game.dealer is a direct reference
-        #print "Old dealer is %s" % self.dealer.name
-        print "Old dealer index is %s" % self.players.index(game.dealer)
-        print "Old dealer name is %s" % self.players[self.players.index(game.dealer)].name
-
-        #print "New dealer index is %s" % self.players.index(game.dealer) + 1
         print "New dealer name is %s" % self.players[(self.players.index(game.dealer) + 1) % 4].name
-
         return self.players[((self.players.index(game.dealer) + 1) % 4)]
