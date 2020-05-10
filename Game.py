@@ -32,8 +32,8 @@ class Game():
             currentRound = Round(self.players)
             currentRound.playRound()
             self.allotScore(currentRound)
-            self.dealer = self.rotateDeal()
-            print "dealer is %s" % self.dealer.name
+            game.dealer = self.rotateDeal()
+            print "dealer is %s" % game.dealer.name
 
     def allotScore(self, round):
         scoreA = round.players[0].team.roundScore
@@ -57,4 +57,11 @@ class Game():
 
     def rotateDeal(self):  # rotate the dealer
         # use this if game.dealer is a direct reference
+        #print "Old dealer is %s" % self.dealer.name
+        print "Old dealer index is %s" % self.players.index(game.dealer)
+        print "Old dealer name is %s" % self.players[self.players.index(game.dealer)].name
+
+        #print "New dealer index is %s" % self.players.index(game.dealer) + 1
+        print "New dealer name is %s" % self.players[self.players.index(game.dealer) + 1].name
+
         return self.players[(self.players.index(game.dealer) + 1 % 4)]

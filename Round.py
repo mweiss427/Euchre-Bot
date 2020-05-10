@@ -59,14 +59,16 @@ class Round(object):
         print "Up card is: %s" % topCard
 
         for x in range(1, 5):
-            hasOrdered = self.players[(self.players.index(game.dealer) + x % 4)].orderUpCard(topCard)
+            num = self.players.index(game.dealer) + x % 4
+            hasOrdered = self.players[num].orderUpCard(topCard)
             if hasOrdered:
                 game.dealer.discardCard(hasOrdered)
                 return topCard.suit
 
         print "%s is flipped down" % topCard
         for x in range(1, 4):
-            orderedSuit = self.players[(self.players.index(game.dealer) + x % 4)].orderUpSuit(topCard.suit)
+            num = self.players.index(game.dealer) + x % 4
+            orderedSuit = self.players[num].orderUpSuit(topCard.suit)
             if orderedSuit != "pass":
                 return orderedSuit
 
