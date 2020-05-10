@@ -63,15 +63,18 @@ class Round(object):
             hasOrdered = self.players[num].orderUpCard(topCard)
             if hasOrdered:
                 game.dealer.discardCard(hasOrdered)
+                self.players[num].team.bidder = True
                 return topCard.suit
-
         print "%s is flipped down" % topCard
+
         for x in range(1, 4):
             num = (self.players.index(game.dealer) + x) % 4
             orderedSuit = self.players[num].orderUpSuit(topCard.suit)
             if orderedSuit != "pass":
+                self.players[num].team.bidder = True
                 return orderedSuit
 
+        game.dealer.team.bidder = True
         return game.dealer.forceOrderUp(topCard.suit)
 
     def getTrump(self):

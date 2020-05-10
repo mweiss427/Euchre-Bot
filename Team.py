@@ -4,6 +4,7 @@ class Team():
         self.name = teamName
         self.score = 0
         self.roundScore = 0
+        self.bidder = False
 
     def getScore(self):
         return self.score

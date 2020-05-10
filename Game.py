@@ -5,10 +5,6 @@ import RandomPlayer
 
 
 # holder and runner of the entire game
-
-
-
-
 class Game():
     def __init__(self):
 
@@ -36,7 +32,6 @@ class Game():
             currentRound.playRound()
             self.allotScore(currentRound)
             game.dealer = self.rotateDeal()
-            print "dealer is %s" % game.dealer.name
 
         return self.getWinner()
 
@@ -59,7 +54,7 @@ class Game():
     def allotScore(self, round):
         scoreA = round.players[0].team.roundScore
         scoreB = round.players[1].team.roundScore
-
+        #TODO add set logic 
         if scoreA > 3:
             if scoreA == 5:
                 self.team1.score += 2
